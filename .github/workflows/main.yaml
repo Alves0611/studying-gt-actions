@@ -1,27 +1,56 @@
-name: Exemplo com Input e Output
+name: 📦 Estudando Inputs - Release e Deploy
 
 on:
   workflow_dispatch:
     inputs:
-      nome:
-        description: "Seu nome"
+      versao:
+        type: string
         required: true
-        default: "Visitante"
+        default: "1.0.0"
+        description: "📌 Versão da nova release"
+
+      numero_card:
+        type: number
+        required: true
+        description: "🧾 Número do card relacionado"
+
+      fazer_deploy:
+        type: boolean
+        required: true
+        default: false
+        description: "🚀 Deseja fazer o deploy?"
+
+      ambiente:
+        type: choice
+        required: true
+        default: "dev"
+        description: "🌍 Ambiente de deploy"
+        options:
+          - dev
+          - hml
+          - prod
 
 jobs:
-  exemplo:
+  imprimir-informacoes:
+    name: 🖨️ Imprimir valores recebidos
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Receber nome via input
-        id: entrada
-        run: echo "NOME=${{ github.event.inputs.nome }}" >> $GITHUB_ENV
-
-      - name: ⚙️ Gerar saudação personalizada
-        id: saudacao
+      - name: 📥 Coletar inputs e definir variáveis de ambiente
         run: |
-          SAUDACAO="Olá, $NOME! Bem-vindo ao GitHub Actions!"
-          echo "saudacao=$SAUDACAO" >> $GITHUB_OUTPUT
+          echo "VERSAO=${{ github.event.inputs.versao }}" >> $GITHUB_ENV
+          echo "NUMERO_CARD=${{ github.event.inputs.numero_card }}" >> $GITHUB_ENV
+          echo "FAZER_DEPLOY=${{ github.event.inputs.fazer_deploy }}" >> $GITHUB_ENV
+          echo "AMBIENTE=${{ github.event.inputs.ambiente }}" >> $GITHUB_ENV
 
-      - name: 📤 Exibir resultado final com output
-        run: echo "Mensagem final: ${{ steps.saudacao.outputs.saudacao }}"
+      - name: 📋 Mostrar todos os valores no log
+        run: |
+          echo "📦 Versão: $VERSAO"
+          echo "📄 Número do card: $NUMERO_CARD"
+          echo "🚀 Fazer deploy? $FAZER_DEPLOY"
+          echo "🌍 Ambiente selecionado: $AMBIENTE"
+
+      - name: 🚨 Executar deploy somente se solicitado
+        if: env.FAZER_DEPLOY == 'true'
+        run: |
+          echo "🔧 Iniciando processo de deploy no ambiente: $AMBIENTE"
