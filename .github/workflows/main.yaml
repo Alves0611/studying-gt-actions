@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       nome:
-        description: "Gabriel"
+        description: "Seu nome"  # Aqui a descrição deve descrever o campo, não o valor
         required: true
         default: "Visitante"
 
@@ -25,4 +25,3 @@ jobs:
 
       - name: 📤 Exibir resultado final com output
         run: echo 'Mensagem final: ${{ steps.saudacao.outputs.saudacao }}'
-
