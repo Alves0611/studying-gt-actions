@@ -14,9 +14,9 @@ jobs:
       MY_ENV_VAR_JOB: test, package, release, and deploy your project.
     steps:
       - name: Run a one-line script
-        run: echo {{ env.MY_ENV_VAR_WORKFLOW }}
+        run: echo "${{ env.MY_ENV_VAR_WORKFLOW }}"
 
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo {{ env.MY_ENV_VAR_JOB }}
+          echo "{{ env.MY_ENV_VAR_JOB }}"
