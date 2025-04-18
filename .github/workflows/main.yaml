@@ -1,9 +1,7 @@
 name: Workflow com Variáveis
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 # 🌐 Variável de ambiente no nível do WORKFLOW
 env:
