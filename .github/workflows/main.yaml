@@ -1,23 +1,28 @@
-name: first-pipe
+name: Exemplo com Input e Output
 
 on:
   workflow_dispatch:
-
-env:
-  MY_ENV_VAR_WORKFLOW: Hello, world!
+    inputs:
+      nome:
+        description: "Gabriel"
+        required: true
+        default: "Visitante"
 
 jobs:
-  first-job:
-    name: first-job
+  exemplo:
     runs-on: ubuntu-latest
-    env:
-      MY_ENV_VAR_JOB: test, package, release, and deploy your project.
-    steps:
-      - name: Run a one-line script
-        run: echo "${{ env.MY_ENV_VAR_WORKFLOW }}"
 
-      - name: Run a multi-line script
+    steps:
+      - name: 📥 Receber nome via input
+        id: entrada
+        run: echo "NOME=${{ github.event.inputs.nome }}" >> $GITHUB_ENV
+
+      - name: ⚙️ Gerar saudação personalizada
+        id: saudacao
         run: |
-          echo "Add other actions to build,"
-          echo "${{ env.MY_ENV_VAR_JOB }}"
+          SAUDACAO="Olá, $NOME! Bem-vindo ao GitHub Actions!"
+          echo "saudacao=$SAUDACAO" >> $GITHUB_OUTPUT
+
+      - name: 📤 Exibir resultado final com output
+        run: echo 'Mensagem final: ${{ steps.saudacao.outputs.saudacao }}'
 
