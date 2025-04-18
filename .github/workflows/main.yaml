@@ -1,23 +1,35 @@
-name: first-pipe
+name: Workflow com Variáveis
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
+# 🌐 Variável de ambiente no nível do WORKFLOW
 env:
-  MY_ENV_VAR_WORKFLOW: Hello, world!
+  WORKFLOW_VAR: "Valor do Workflow"
 
 jobs:
-  first-job:
-    name: first-job
+  build:
     runs-on: ubuntu-latest
+
+    # 🧱 Variável de ambiente no nível do JOB
     env:
-      MY_ENV_VAR_JOB: test, package, release, and deploy your project.
+      JOB_VAR: "Valor do Job"
+
     steps:
-      - name: Run a one-line script
-        run: echo "${{ env.MY_ENV_VAR_WORKFLOW }}"
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-      - name: Run a multi-line script
+      - name: Mostrar variáveis do Workflow e Job
         run: |
-          echo "Add other actions to build,"
-          echo "${{ env.MY_ENV_VAR_JOB }}"
+          echo "WORKFLOW_VAR = ${{ env.WORKFLOW_VAR }}"
+          echo "JOB_VAR = ${{ env.JOB_VAR }}"
 
+      - name: Variável no nível do Step (Action)
+        env:
+          STEP_VAR: "Valor do Step"
+        run: |
+          echo "WORKFLOW_VAR = ${{ env.WORKFLOW_VAR }}"
+          echo "JOB_VAR = ${{ env.JOB_VAR }}"
+          echo "STEP_VAR = $STEP_VAR"
