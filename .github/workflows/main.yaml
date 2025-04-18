@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       nome:
-        description: "Seu nome"  # Aqui a descrição deve descrever o campo, não o valor
+        description: "Seu nome"
         required: true
         default: "Visitante"
 
@@ -24,4 +24,4 @@ jobs:
           echo "saudacao=$SAUDACAO" >> $GITHUB_OUTPUT
 
       - name: 📤 Exibir resultado final com output
-        run: echo 'Mensagem final: ${{ steps.saudacao.outputs.saudacao }}'
+        run: echo "Mensagem final: ${{ steps.saudacao.outputs.saudacao }}"
