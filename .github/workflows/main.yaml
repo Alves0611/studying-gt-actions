@@ -1,23 +1,35 @@
-name: first-pipe
+name: Exemplo de Contextos
 
 on:
   workflow_dispatch:
 
-env:
-  MY_ENV_VAR_WORKFLOW: Hello, world!
-
 jobs:
-  first-job:
-    name: first-job
+  mostrar-contextos:
     runs-on: ubuntu-latest
     env:
-      MY_ENV_VAR_JOB: test, package, release, and deploy your project.
+      CUSTOM_ENV: "Minha variável de ambiente"
+
     steps:
-      - name: Run a one-line script
-        run: echo "${{ env.MY_ENV_VAR_WORKFLOW }}"
-
-      - name: Run a multi-line script
+      - name: Contexto github
         run: |
-          echo "Add other actions to build,"
-          echo "${{ env.MY_ENV_VAR_JOB }}"
+          echo "Repositório: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Evento: ${{ github.event_name }}"
 
+      - name: Contexto env
+        run: |
+          echo "CUSTOM_ENV = ${{ env.CUSTOM_ENV }}"
+
+      - name: Contexto runner
+        run: |
+          echo "Sistema Operacional: ${{ runner.os }}"
+          echo "Arquitetura: ${{ runner.arch }}"
+
+      - name: Contexto job e steps
+        id: exemplo_step
+        run: echo "status=sucesso" >> $GITHUB_OUTPUT
+
+      - name: Usando steps e job
+        run: |
+          echo "Output do step anterior: ${{ steps.exemplo_step.outputs.status }}"
+          echo "Status do job: ${{ job.status }}"
