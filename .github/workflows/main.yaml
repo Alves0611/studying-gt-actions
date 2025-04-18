@@ -9,11 +9,6 @@ on:
         default: "1.0.0"
         description: "📌 Versão da nova release"
 
-      numero_card:
-        type: number
-        required: true
-        description: "🧾 Número do card relacionado"
-
       fazer_deploy:
         type: boolean
         required: true
@@ -39,14 +34,12 @@ jobs:
       - name: 📥 Coletar inputs e definir variáveis de ambiente
         run: |
           echo "VERSAO=${{ github.event.inputs.versao }}" >> $GITHUB_ENV
-          echo "NUMERO_CARD=${{ github.event.inputs.numero_card }}" >> $GITHUB_ENV
           echo "FAZER_DEPLOY=${{ github.event.inputs.fazer_deploy }}" >> $GITHUB_ENV
           echo "AMBIENTE=${{ github.event.inputs.ambiente }}" >> $GITHUB_ENV
 
       - name: 📋 Mostrar todos os valores no log
         run: |
           echo "📦 Versão: $VERSAO"
-          echo "📄 Número do card: $NUMERO_CARD"
           echo "🚀 Fazer deploy? $FAZER_DEPLOY"
           echo "🌍 Ambiente selecionado: $AMBIENTE"
 
