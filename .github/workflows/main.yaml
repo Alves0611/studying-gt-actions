@@ -21,20 +21,18 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
           path: artifacts/
-
+          
   download-artifact:
     needs: upload-artifact
     runs-on: ubuntu-latest
     steps:
-      - name: listagem de arquivos
-        run: ls
-      - name: baixar o artifacto
+      - name: Baixar o artefato
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.artifact_name }}
           path: artifacts/
       - name: Listagem de arquivos
-        run: ls
+        run: ls artifacts/
       - name: Ler o arquivo
-        run: cat hello.txt
+        run: cat artifacts/hello.txt
 
