@@ -2,7 +2,7 @@ name: studying artifact
 on:
   workflow_dispatch:
 
-env: 
+env:
   artifact_name: hello-world
 
 jobs:
@@ -20,8 +20,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}
+          path: artifacts/
 
-  download-artifact: 
+  download-artifact:
     needs: upload-artifact
     runs-on: ubuntu-latest
     steps:
