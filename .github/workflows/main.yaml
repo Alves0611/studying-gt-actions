@@ -17,7 +17,7 @@ jobs:
           echo "Hello World" > artifacts/hello.txt
           echo "Hello World 2" > artifacts/hello2.txt
           echo "Hello World 3" > artifacts/hello3.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}
 
@@ -28,7 +28,7 @@ jobs:
       - name: listagem de arquivos
         run: ls
       - name: baixar o artifacto
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.artifact_name }}
       - name: listagem de arquivos
