@@ -1,0 +1,33 @@
+name: studying artifact
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: listagem de arquivos
+        run: ls
+      - name: gerar alguns arquivos
+        run: |
+          mkdir artifacts 
+          echo "Hello World" > artifacts/hello.txt
+          echo "Hello World 2" > artifacts/hello2.txt
+          echo "Hello World 3" > artifacts/hello3.txt
+      - uses: actions/upload-artifact@v3
+        with:
+          name: hello-world
+
+  download-artifact: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: listagem de arquivos
+        run: ls
+      - name: baixar o artifacto
+        uses: actions/download-artifact@v3
+        with:
+          name: hello-world
+      - name: listagem de arquivos
+        run: ls artifacts/
+      - name: ler o arquivo
+        run: cat artifacts/hello.txt
