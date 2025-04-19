@@ -3,8 +3,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  studying-github-actions:
-    runs-on: ubuntu-latest
+  studying-controle-execucao:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-lateste
     steps:
-      - name: hello world
-        run: echo "hello world"
+      - name: Execute script
+        run: |
+          echo "Hello, world!"
+          echo "This is a test of GitHub Actions."
+          echo "The current date and time is $(date)."
+          echo "The current user is $(whoami)."
+          echo "The current working directory is $(pwd)."
+          echo "The contents of the current directory are:"
+          ls -l
+  executar-script:
+    runs-on: ubuntu-lateste
+    steps:
+      - name: Execute script
+        run: |
+          echo "Hello, world!"
+          echo "This is a test of GitHub Actions."
+          echo "The current date and time is $(date)."
+          echo "The current user is $(whoami)."
+          echo "The current working directory is $(pwd)."
+          echo "The contents of the current directory are:"
+          ls -l
