@@ -32,7 +32,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.artifact_name }}
-      - name: listagem de arquivos
-        run: ls artifacts/
-      - name: ler o arquivo
-        run: cat artifacts/hello.txt
+          path: artifacts/
+      - name: Listagem de arquivos
+        run: ls
+      - name: Ler o arquivo
+        run: cat hello.txt
+
