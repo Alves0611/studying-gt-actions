@@ -2,6 +2,9 @@ name: studying artifact
 on:
   workflow_dispatch:
 
+env: 
+  artifact_name: hello-world
+
 jobs:
   upload-artifact:
     runs-on: ubuntu-latest
@@ -16,7 +19,7 @@ jobs:
           echo "Hello World 3" > artifacts/hello3.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: hello-world
+          name: ${{ env.artifact_name }}
 
   download-artifact: 
     runs-on: ubuntu-latest
@@ -26,7 +29,7 @@ jobs:
       - name: baixar o artifacto
         uses: actions/download-artifact@v3
         with:
-          name: hello-world
+          name: ${{ env.artifact_name }}
       - name: listagem de arquivos
         run: ls artifacts/
       - name: ler o arquivo
