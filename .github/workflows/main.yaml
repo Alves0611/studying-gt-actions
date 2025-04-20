@@ -1,10 +1,9 @@
-name: studying-github-actions
+name: estudando gerenciamento de ambientes
 on:
   workflow_dispatch:
-
 jobs:
-  studying-github-actions:
+  deploy-fake:
     runs-on: ubuntu-latest
     steps:
-      - name: hello world
-        run: echo "hello world"
+      - name: deploy em ambiente
+        run: echo "Deploy no ambiente de ${{ vars.environment }}"
